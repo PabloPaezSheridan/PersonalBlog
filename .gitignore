@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Backend/.vs/PersonalBlog
+
+/Backend/PersonalBlog/bin
+/Backend/PersonalBlog/obj
+

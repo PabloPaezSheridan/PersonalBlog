@@ -19,6 +19,7 @@ namespace PersonalBlog.Controllers
         [HttpGet]
         public IEnumerable<Article> Get()
         {
+            System.Threading.Thread.Sleep(5000);
             return _blogContext.Articles.ToList();
         }
 
@@ -51,7 +52,8 @@ namespace PersonalBlog.Controllers
                 Content = article.Content,
                 Date = article.Date,
                 ImagePath = article.ImagePath,
-                Title = article.Title
+                Title = article.Title,
+                Summary = article.Summary,
             };
             _blogContext.Articles.Add(artForPost);
             _blogContext.SaveChanges();
@@ -60,14 +62,16 @@ namespace PersonalBlog.Controllers
 
         // PUT api/<ArticleController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] ArticleForPost article)
+        public ActionResult Put(int id, [FromBody] ArticleForPut article)
         {
 
             Article art = _blogContext.Articles.FirstOrDefault(i => i.Id == id);
-            art.Title = article.Title;
-            art.Content = article.Content;
-            art.Date = article.Date;
-            art.ImagePath = article.ImagePath;
+            art.Title = article.Title ?? art.Title;
+            art.Content = article.Content ?? art.Content;
+            art.Summary = article.Summary ?? art.Summary;
+            if (article.Date != null)
+                art.Date = article.Date;
+            art.ImagePath = article.ImagePath ?? art.ImagePath;
             _blogContext.Articles.Update(art);
             _blogContext.SaveChanges();
             return NoContent();

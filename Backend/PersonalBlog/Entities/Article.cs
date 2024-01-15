@@ -10,9 +10,11 @@ namespace PersonalBlog.Entities
         [Required]
         [MaxLength(10000)]
         public string Content { get; set; }
+
+        public string Summary { get; set; }
         [Key]
         public int Id { get; set; }
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime? Date { get; set; } = DateTime.Now;
         [MaxLength(1000)]
         public string? ImagePath { get; set; }
     }
